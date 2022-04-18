@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block content %}
+<div class="container">
+    <div class="columns is-centered">
+        {% if articles %}
+        {% for article in articles %}
+        <div class="column is-3">
+            <div class="card has-text-centered">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <a href="">
+                                <p class="title has-text-dark is-2">
+                                    {{ article }}
+                                </p>
+
+                                {% if user == article.author %}
+
+                                <p class="subtitle is-4 has-text-grey">by you</p>
+                                {% else %}
+                                <p class="subtitle is-4 has-text-grey">by {{ article.author }}</p>
+                                {% endif %}
+
+                            </a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <a href="{% url  'article_detail'  article.slug %}">
+                            {{ article.snipper }}
+                        </a>
+                        <br>
+                        <div>{{ article.date }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+
+        <p class="has-text-centered is-warning" style="display:block;">Siz qidirayotgan ma'lumot topilmadi</p>
+        <br><br>
+        <section class="section">
+            <img src="{% static '/images/header.svg' %}" alt="">
+        </section>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
